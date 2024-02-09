@@ -41,9 +41,3 @@ variable "server_name" {
   type        = string
   default     = "tailscale-node"
 }
-
-variable "datacenter" {
-  description = "The datacenter to create the server in"
-  type        = string
-  default     = "hil-dc1"
-}
