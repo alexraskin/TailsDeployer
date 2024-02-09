@@ -9,7 +9,7 @@ resource "hcloud_server" "tailscale-node" {
     tailscale_auth_key = var.tailscale_auth_key
     username           = var.username
   })
-  ssh_keys = [var.ssh_public_key]
+  ssh_keys = [hcloud_ssh_key.tailscale.id]
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true
@@ -23,4 +23,9 @@ resource "hcloud_server" "tailscale-node" {
     create_before_destroy = true
     ignore_changes        = [ssh_keys]
   }
+}
+
+resource "hcloud_ssh_key" "tailscale" {
+  name       = var.username
+  public_key = var.ssh_public_key
 }
