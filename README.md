@@ -14,7 +14,9 @@ Deploy [Tailscale](https://tailscale.com/) onto a [Hetzner](https://www.hetzner.
 hetzner_token      = "" # https://console.hetzner.cloud/projects/<project_id>/security/api-tokens
 ssh_public_key     = "" # e.g. "ssh-rsa ...."
 tailscale_auth_key = "" # https://login.tailscale.com/admin/settings/keys
-username           = "" # e.g. "tailscale"
+server_username    = "" # e.g. "tailscale"
+server_name        = "" # e.g. "tailscale-server"
+tailscale_api_key = "" # https://login.tailscale.com/admin/settings/authkeys
 ```
 
 4. Run `terraform init`

@@ -1,4 +1,4 @@
-resource "hcloud_server" "tailscale-node" {
+resource "hcloud_server" "tailscale_node" {
   name        = "${var.server_name}-${var.location}"
   image       = var.image
   server_type = var.server_type
@@ -6,10 +6,10 @@ resource "hcloud_server" "tailscale-node" {
 
   user_data = templatefile("${path.module}/cloudinit.tpl", {
     ssh_public_key     = var.ssh_public_key
-    tailscale_auth_key = var.tailscale_auth_key
-    username           = var.username
+    tailscale_auth_key = tailscale_tailnet_key.tailscale.key
+    username           = var.server_username
   })
-  ssh_keys = [hcloud_ssh_key.tailscale.id]
+  ssh_keys = [hcloud_ssh_key.tailscale_node_key.id]
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true
@@ -25,7 +25,13 @@ resource "hcloud_server" "tailscale-node" {
   }
 }
 
-resource "hcloud_ssh_key" "tailscale" {
-  name       = var.username
+resource "hcloud_ssh_key" "tailscale_node_key" {
+  name       = var.server_name
   public_key = var.ssh_public_key
 }
+
+resource "tailscale_tailnet_key" "tailscale" {
+  reusable    = false
+  description = "Hetnzer Cloud Server Tailnet Key"
+}
+

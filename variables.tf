@@ -3,9 +3,10 @@ variable "hetzner_token" {
   type        = string
 }
 
-variable "tailscale_auth_key" {
-  description = "The Tailscale authentication key: More info https://login.tailscale.com/admin/settings/keys"
+variable "tailscale_api_key" {
+  description = "The Tailscale API key"
   type        = string
+
 }
 
 variable "ssh_public_key" {
@@ -13,7 +14,7 @@ variable "ssh_public_key" {
   type        = string
 }
 
-variable "username" {
+variable "server_username" {
   description = "The username to create on the server"
   type        = string
 }
