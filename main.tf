@@ -1,5 +1,5 @@
 resource "hcloud_server" "tailscale_node" {
-  name        = "${var.server_name}-${var.location}"
+  name        = "${var.server_name}-${var.location}-tailscale-node"
   image       = var.image
   server_type = var.server_type
   location    = var.location
@@ -32,6 +32,5 @@ resource "hcloud_ssh_key" "tailscale_node_key" {
 
 resource "tailscale_tailnet_key" "tailscale" {
   reusable    = false
-  description = "Hetnzer Cloud Server Tailnet Key"
+  description = "Hetnzer Cloud Server Tailnet Key for ${var.server_name}-${var.location}"
 }
-

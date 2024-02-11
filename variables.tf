@@ -6,7 +6,6 @@ variable "hetzner_token" {
 variable "tailscale_api_key" {
   description = "The Tailscale API key"
   type        = string
-
 }
 
 variable "ssh_public_key" {
