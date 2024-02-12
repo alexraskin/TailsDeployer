@@ -9,7 +9,8 @@ resource "hcloud_server" "tailscale_node" {
     tailscale_auth_key = tailscale_tailnet_key.tailscale.key
     username           = var.server_username
   })
-  ssh_keys = [hcloud_ssh_key.tailscale_node_key.id]
+  ssh_keys     = [hcloud_ssh_key.tailscale_node_key.id]
+  firewall_ids = [hcloud_firewall.tailsclae_udp_firewall.id]
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true
@@ -28,6 +29,19 @@ resource "hcloud_server" "tailscale_node" {
 resource "hcloud_ssh_key" "tailscale_node_key" {
   name       = var.server_name
   public_key = var.ssh_public_key
+}
+
+resource "hcloud_firewall" "tailsclae_udp_firewall" {
+  name = "tailscale-udp-firewall-${var.server_name}-${var.location}"
+  rule {
+    direction = "in"
+    protocol  = "udp"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0"
+    ]
+    port = "41641"
+  }
 }
 
 resource "tailscale_tailnet_key" "tailscale" {

@@ -18,4 +18,3 @@ runcmd:
   - ['tailscale', 'up', '--authkey=${tailscale_auth_key}']
   - ['tailscale', 'set', '--ssh']
   - ['tailscale', 'set', '--advertise-exit-node']
-  - reboot
